@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {include file="common/resource" /}
+    <title>格子博客</title>
+<link type="text/css" rel="stylesheet" href="__CSS__/index/common.css">
+<style>
+.carousel-item img{
+    width: 100%;
+    height: 20%;
+}
+.blogs{
+	width: 100%;
+	height: 12rem;
+	margin: auto;
+	/* background-color: darkgray;  */
+	border: 0.05rem solid #DDDDDD;
+	margin-top: 1rem;
+}
+.blogs:hover{
+	border: none;
+	box-shadow:0.2rem 0.2rem 0.5rem #CCCCCC;
+}
+.blogs .thumb{
+	width:30%;
+	height: 84%;
+	float:left;
+	margin-top: 1rem;
+	margin-left: 1rem;
+	overflow: hidden;
+}
+.blogs .thumb img{
+	width: 100%;
+	height: 100%;
+	transition-duration:0.5s;
+}
+.blogs .thumb img:hover{
+	transform: scale(1.2);
+    -webkit-transform: scale(1.2); /*Safari 和 Chrome*/
+    -moz-transform: scale(1.2); /*Firefox*/
+    -ms-transform: scale(1.2); /*IE9*/
+    -o-transform: scale(1.2); /*Opera*/
+}
+.blogs .blog-info{
+	width: 62%;
+	height: 84%;
+	float:left;
+	margin-top: 1rem;
+	margin-left: 1rem;
+	/* border: 0.05rem solid red; */
+}
+.blogs .blog-info .blog-title{
+	width: 100%;
+	height: 2rem;
+}
+.blogs .blog-info .blog-title p{
+	font-size: 1.2rem;
+	color: #000000;
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.blogs .blog-info .blog-summary{
+	width: 100%;
+	height: 6rem;
+	/* border: 0.05rem solid red; */
+	margin-top: 0.2rem;
+	
+}
+.blogs .blog-info .blog-summary p{
+	font-size: 0.9rem;
+	text-indent: 1.6rem;
+	line-height: 1.4rem;
+	color: #777777;
+	overflow:hidden;
+	text-overflow:ellipsis; 
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 4;
+	overflow: hidden;
+}
+.blogs .blog-info .blog-items{
+	width: 100%;
+	height: 1.2rem;
+	/* border: 0.05rem solid #ccc; */
+	line-height: 100%;	
+	font-size: 0.8rem;
+	color: #3a9472;
+}
+</style>
+</head>
+<body>
+    
+    {include file="common/header" /}
+    <!-- <div class="row justify-content-center"> -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <div id="demo" class="carousel slide" data-ride="carousel">
+                            <!-- 指示符 -->
+                            <ul class="carousel-indicators">
+                              <li data-target="#demo" data-slide-to="0" class="active"></li>
+                              <li data-target="#demo" data-slide-to="1"></li>
+                              <li data-target="#demo" data-slide-to="2"></li>
+                            </ul>
+                           
+                            <!-- 轮播图片 -->
+                            <div class="carousel-inner">
+                              <div class="carousel-item active">
+                                <img src="__PUBLIC__static/images/carousel001.jpg">
+                              </div>
+                              <div class="carousel-item">
+                                <img src="__PUBLIC__static/images/carousel002.jpg">
+                              </div>
+                              <div class="carousel-item">
+                                <img src="__PUBLIC__static/images/carousel003.jpg">
+                              </div>
+                            </div>
+                           
+                          </div>
+                    </div>
+                    <div class="card-body" id="blog">
+						<h4>最新文章</h4>
+						{volist name="blogs" id="blog"}
+						<a href="{:url('detail',array('id' => $blog['id']))}">
+							<div class="blogs">
+								<div class="thumb">
+									<img src="__PUBLIC__{$blog.thumb}" alt="thumb">
+								</div>
+								<div class="blog-info">
+									<div class="blog-title">
+										<p>{$blog.title}</p>
+									</div>
+									<div class="blog-summary">
+										<p>{$blog.summary}</p>
+									</div>
+									<div class="blog-items">
+										类别：{$blog.sort} 时间：{$blog.create_time} 评论：{$blog.comment_num} 浏览：{$blog.clicks}
+									</div>
+								</div>
+							</div>
+						</a>
+						{/volist}
+                    </div>
+                </div>
+            </div>
+            {include file="common/siderbar" /}
+        </div>
+    </div>
+    <div class="container">
+            {include file="common/footer" /}
+	</div>
+<script type="text/javascript" src="__PUBLIC__static/js/cfs.snow.js-master/CFS.Snow.min.js"></script>
+<script>
+snow.down()
+$(function() {
+	//微博图标切换
+	$('.weibo').mouseenter(function(){
+		$(this).attr('src', '__PUBLIC__static/images/icons/weibo-gray.png');
+	}).mouseleave(function(){
+		$(this).attr('src', '__PUBLIC__static/images/icons/weibo-colorful.png');
+	});
+
+	//qq
+	$('.qq').mouseenter(function(){
+		$(this).attr('src', '__PUBLIC__static/images/icons/qq-gray.png');
+	}).mouseleave(function(){
+		$(this).attr('src', '__PUBLIC__static/images/icons/qq-colorful.png');
+	});
+
+	//email
+	$('.email').mouseenter(function(){
+		$(this).attr('src', '__PUBLIC__static/images/icons/email-gray.png');
+	}).mouseleave(function(){
+		$(this).attr('src', '__PUBLIC__static/images/icons/email-colorful.png');
+	});
+	
+	//订阅
+	$('.dingyue').mouseenter(function(){
+		$(this).attr('src', '__PUBLIC__static/images/icons/dingyue-gray.png');
+	}).mouseleave(function(){
+		$(this).attr('src', '__PUBLIC__static/images/icons/dingyue-colorful.png');
+	});
+})
+</script> 
+</body>
+</html>
